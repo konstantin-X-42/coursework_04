@@ -203,3 +203,21 @@ python manage.py runserver
 ├── pyproject.toml              # -27- Конфигурационный файл зависимостей проекта Poetry с добавлением библиотеки redis
 └── README.md                   # -29- Документация проекта
 ```
+
+```commandline
+📁 mailing/
+└── 📁 templates/
+└── 📁 mailing/
+├── base.html — базовый шаблон (шапка, футер, стили)
+├── home.html — главная страница со статистикой
+├── mailing_list.html — список рассылок
+├── mailing_detail.html — детальный просмотр рассылки + логи
+├── mailing_form.html — форма создания/редактирования рассылки
+├── mailing_confirm_delete.html — подтверждение удаления
+├── client_list.html — список клиентов
+├── client_form.html — форма для клиентов
+├── client_confirm_delete.html
+├── message_list.html — список сообщений
+├── message_form.html — форма для сообщений
+└── message_confirm_delete.html
+```

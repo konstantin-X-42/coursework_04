@@ -1,0 +1,67 @@
+<!-- Детальный просмотр рассылки + кнопка ручного запуска + логи -->
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'mailing:mailing_list' %}" class="text-decoration-none text-muted">&larr; Вернуться к списку</a>
+</div>
+
+<div class="row g-4">
+    <!-- Карточка информации о рассылке -->
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 p-3 mb-4">
+            <div class="card-body">
+                <h4 class="fw-bold mb-3">Рассылка #{{ object.id }}</h4>
+                <hr>
+                <p><strong>Тема сообщения:</strong> {{ object.message.title }}</p>
+                <p><strong>Текст сообщения:</strong> <br><span class="text-muted">{{ object.message.body|linebreaksbr }}</span></p>
+                <p><strong>Начало:</strong> {{ object.start_time|date:"d.m.Y H:i" }}</p>
+                <p><strong>Окончание:</strong> {{ object.end_time|date:"d.m.Y H:i" }}</p>
+                <p><strong>Текущий статус:</strong> 
+                    {% if object.status == 'created' %}
+                        <span class="badge bg-secondary fs-6">Создана</span>
+                    {% elif object.status == 'started' %}
+                        <span class="badge bg-success fs-6">Запущена</span>
+                    {% else %}
+                        <span class="badge bg-danger fs-6">Завершена</span>
+                    {% endif %}
+                </p>
+                <p><strong>Получателей:</strong> {{ object.recipients.count }} чел.</p>
+                
+                <div class="d-grid gap-2 mt-4">
+                    <!-- Кнопка ручного запуска отправки писем по ТЗ -->
+                    <a href="{% url 'mailing:run_mailing' object.pk %}" class="btn btn-success fw-bold py-2">⚡ Запустить рассылку вручную</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Логи попыток рассылки (Требование ТЗ) -->
+    <div class="col-md-7">
+        <div class="card shadow-sm border-0 p-3">
+            <div class="card-body">
+                <h5 class="fw-bold mb-3">История отправки (Логи)</h5>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <ul class="list-group list-group-flush">
+                        {% for log in object.logs.all order_by="-attempt_time" %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start px-0 py-3">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold small">{{ log.attempt_time|date:"d.m.Y H:i:s" }}</div>
+                                <span class="text-muted small">Ответ сервера: {{ log.server_response }}</span>
+                            </div>
+                            {% if log.status == 'success' %}
+                                <span class="badge bg-success rounded-pill">Успешно</span>
+                            {% else %}
+                                <span class="badge bg-danger rounded-pill">Ошибка</span>
+                            {% endif %}
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item text-center text-muted py-4">Эту рассылку еще не запускали.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
