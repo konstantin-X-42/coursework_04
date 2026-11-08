@@ -38,6 +38,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+
 # Настройка шаблонов (исправляет ошибку (admin.E403) из терминала)
 TEMPLATES = [
     {
@@ -56,6 +57,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
 
 # Настройки подключения к PostgreSQL (загружаются из вашего .env)
 DATABASES = {
