@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 
 # 1. Модель «Получатель рассылки» (Клиент)
@@ -9,12 +10,21 @@ class Client(models.Model):
     full_name = models.CharField(max_length=255, verbose_name="Ф. И. О.")
     comment = models.TextField(blank=True, null=True, verbose_name="Комментарий")
 
+    # ТЗ: Привязка к создателю объекта
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Владелец"
+    )
+
     def __str__(self):
         return f"{self.full_name} ({self.email})"
 
     class Meta:
         verbose_name = "Получатель рассылки"
-        verbose_name = "Получатели рассылки"
+        verbose_name_plural = "Получатели рассылки"
 
 
 # 2. Модель «Сообщение»
@@ -22,12 +32,21 @@ class Message(models.Model):
     title = models.CharField(max_length=255, verbose_name="Тема письма")
     body = models.TextField(verbose_name="Тело письма")
 
+    # ТЗ: Привязка к создателю объекта
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Владелец"
+    )
+
     def __str__(self):
         return self.title
 
     class Meta:
         verbose_name = "Сообщение"
-        verbose_name = "Сообщения"
+        verbose_name_plural = "Сообщения"
 
 
 # 3. Модель «Рассылка»
@@ -46,18 +65,25 @@ class Mailing(models.Model):
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name="Сообщение")
     recipients = models.ManyToManyField(Client, verbose_name="Получатели")
 
+    # ТЗ: Привязка к создателю объекта
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Владелец"
+    )
+
     # Валидация на уровне сохранения (чистый Django-way)
     def clean(self):
         super().clean()
-        # Проверка: start_time не может быть в прошлом при создании новой рассылки
         if not self.pk and self.start_time < timezone.now():
             raise ValidationError({'start_time': 'Дата начала рассылки не может быть в прошлом.'})
 
-        # Проверка: start_time должен быть раньше end_time
         if self.start_time and self.end_time and self.start_time >= self.end_time:
             raise ValidationError({'end_time': 'Дата окончания должна быть позже даты начала.'})
 
-    # Динамический пересчет статуса (требование из третьего скрипта)
+    # Динамический пересчет статуса
     def update_status(self):
         now = timezone.now()
         old_status = self.status
@@ -78,10 +104,16 @@ class Mailing(models.Model):
 
     class Meta:
         verbose_name = "Рассылка"
-        verbose_name = "Рассылки"
+        verbose_name_plural = "Рассылки"
+
+        # Права доступа для роли Менеджера по ТЗ
+        permissions = [
+            ('can_view_any_mailings', 'Может просматривать любые рассылки'),
+            ('can_disable_mailing', 'Может отключать рассылки'),
+        ]
 
 
-# 5. Модель «Попытка рассылки»
+# 4. Модель «Попытка рассылки»
 class MailingLog(models.Model):
     STATUS_CHOICES = [
         ('success', 'Успешно'),
@@ -98,4 +130,6 @@ class MailingLog(models.Model):
 
     class Meta:
         verbose_name = "Попытка рассылки"
-        verbose_name = "Попытки рассылок"
+        verbose_name_plural = "Попытки рассылок"
+        # Исправление: добавляем автоматическую сортировку от новых логов к старым
+        ordering = ['-attempt_time']

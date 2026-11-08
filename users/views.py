@@ -58,3 +58,17 @@ class UserProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def form_valid(self, form):
+        # Принудительно сохраняем изменения из формы в PostgreSQL
+        form.save()
+        return super().form_valid(form)
+
+# class UserProfileView(UpdateView):
+#     model = User
+#     form_class = UserProfileForm
+#     template_name = 'users/profile.html'
+#     success_url = reverse_lazy('users:profile')
+#
+#     def get_object(self, queryset=None):
+#         return self.request.user

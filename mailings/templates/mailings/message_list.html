@@ -3,7 +3,7 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold m-0">Шаблоны писем (Сообщения)</h2>
-    <a href="{% url 'mailing:message_create' %}" class="btn btn-primary">+ Новое сообщение</a>
+    <a href="{% url 'mailings:message_create' %}" class="btn btn-primary">+ Новое сообщение</a>
 </div>
 <div class="card shadow-sm">
     <div class="table-responsive">
@@ -15,8 +15,8 @@
                     <td style="width: 30%;"><strong>{{ object.title }}</strong></td>
                     <td class="text-muted small">{{ object.body|truncatechars:100 }}</td>
                     <td class="text-end">
-                        <a href="{% url 'mailing:message_update' object.pk %}" class="btn btn-sm btn-outline-secondary">Ред.</a>
-                        <a href="{% url 'mailing:message_delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удал.</a>
+                        <a href="{% url 'mailings:message_update' object.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                        <a href="{% url 'mailings:message_delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
                     </td>
                 </tr>
                 {% empty %}

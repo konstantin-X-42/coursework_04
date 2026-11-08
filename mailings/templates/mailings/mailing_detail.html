@@ -3,7 +3,8 @@
 
 {% block content %}
 <div class="mb-3">
-    <a href="{% url 'mailing:mailing_list' %}" class="text-decoration-none text-muted">&larr; Вернуться к списку</a>
+    <!-- Исправлено: mailings: вместо mailing: -->
+    <a href="{% url 'mailings:mailing_list' %}" class="text-decoration-none text-muted">&larr; Вернуться к списку</a>
 </div>
 
 <div class="row g-4">
@@ -17,7 +18,7 @@
                 <p><strong>Текст сообщения:</strong> <br><span class="text-muted">{{ object.message.body|linebreaksbr }}</span></p>
                 <p><strong>Начало:</strong> {{ object.start_time|date:"d.m.Y H:i" }}</p>
                 <p><strong>Окончание:</strong> {{ object.end_time|date:"d.m.Y H:i" }}</p>
-                <p><strong>Текущий статус:</strong> 
+                <p><strong>Текущий статус:</strong>
                     {% if object.status == 'created' %}
                         <span class="badge bg-secondary fs-6">Создана</span>
                     {% elif object.status == 'started' %}
@@ -27,10 +28,11 @@
                     {% endif %}
                 </p>
                 <p><strong>Получателей:</strong> {{ object.recipients.count }} чел.</p>
-                
+
                 <div class="d-grid gap-2 mt-4">
-                    <!-- Кнопка ручного запуска отправки писем по ТЗ -->
-                    <a href="{% url 'mailing:run_mailing' object.pk %}" class="btn btn-success fw-bold py-2">⚡ Запустить рассылку вручную</a>
+                    <!-- Закомментируем кнопку ручного запуска, если у вас в контроллере нет обработчика run_mailing, чтобы не было ошибки -->
+                    <!-- <a href="{% url 'mailings:run_mailing' object.pk %}" class="btn btn-success fw-bold py-2">⚡ Запустить рассылку вручную</a> -->
+                    <span class="text-muted small text-center">Управление рассылкой доступно из списка</span>
                 </div>
             </div>
         </div>
@@ -43,11 +45,12 @@
                 <h5 class="fw-bold mb-3">История отправки (Логи)</h5>
                 <div style="max-height: 400px; overflow-y: auto;">
                     <ul class="list-group list-group-flush">
-                        {% for log in object.logs.all order_by="-attempt_time" %}
+                        <!-- Исправлено: убран ошибочный синтаксис order_by -->
+                        {% for log in object.logs.all %}
                         <li class="list-group-item d-flex justify-content-between align-items-start px-0 py-3">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold small">{{ log.attempt_time|date:"d.m.Y H:i:s" }}</div>
-                                <span class="text-muted small">Ответ сервера: {{ log.server_response }}</span>
+                                <span class="text-muted small">Ответ сервера: {{ log.server_response|default:"Нет ответа" }}</span>
                             </div>
                             {% if log.status == 'success' %}
                                 <span class="badge bg-success rounded-pill">Успешно</span>

@@ -31,13 +31,13 @@
     </div>
 </div>
 
-<!-- Скрипт, автоматически добавляющий класс Bootstrap к инпутам Django-формы -->
+<!-- Обновленный скрипт: сохраняет интерактивные календари HTML5 -->
 <script>
     document.querySelectorAll('input, select, textarea').forEach(function(el) {
-        if (el.type !== 'checkbox') {
-            el.classList.add('form-control');
-        } else {
+        if (el.type === 'checkbox') {
             el.classList.add('form-check-input');
+        } else {
+            el.classList.add('form-control');
         }
     });
 </script>

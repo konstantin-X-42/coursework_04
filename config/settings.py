@@ -118,3 +118,7 @@ STATICFILES_DIRS = [
 
 # Указываем Django использовать нашу кастомную модель вместо стандартной
 AUTH_USER_MODEL = 'users.User'
+
+# Настройки для сохранения и раздачи загружаемых аватарок пользователей
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
