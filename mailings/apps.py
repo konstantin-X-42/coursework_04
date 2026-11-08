@@ -5,7 +5,12 @@ class MailingsConfig(AppConfig):
     name = 'mailings'
     verbose_name = 'Управление рассылками'
 
+    # def ready(self):
+    #     # Импортируем и запускаем планировщик напрямую при готовности приложения
+    #     from .scheduler import start_scheduler
+    #     start_scheduler()
+
+
     def ready(self):
-        # Импортируем и запускаем планировщик напрямую при готовности приложения
-        from .scheduler import start_scheduler
-        start_scheduler()
+        # Оставляем метод пустым, так как теперь задачи планирует Celery Beat
+        pass

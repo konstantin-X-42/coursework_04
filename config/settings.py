@@ -128,3 +128,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Настраиваем вывод всех отправляемых писем напрямую в консоль PyCharm (для тестов и защиты)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Настройки Celery и Redis
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
