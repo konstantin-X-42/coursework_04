@@ -1,5 +1,5 @@
 <!-- Главная страница с статистикой -->
-{% extends 'mailing/base.html' %}
+{% extends 'mailings/base.html' %}
 
 {% block content %}
 <div class="p-5 mb-4 bg-white rounded-3 shadow-sm border">
@@ -17,7 +17,7 @@
             <div class="card-body d-flex flex-column justify-content-between">
                 <h5 class="card-title text-uppercase opacity-75 small">Всего рассылок</h5>
                 <p class="display-4 fw-bold my-2">{{ total_mailings }}</p>
-                <a href="{% url 'mailing:mailing_list' %}" class="text-white text-decoration-none small">Перейти к списку &rarr;</a>
+                <a href="{% url 'mailings:mailing_list' %}" class="text-white text-decoration-none small">Перейти к списку &rarr;</a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
             <div class="card-body d-flex flex-column justify-content-between">
                 <h5 class="card-title text-uppercase opacity-75 small">Уникальные клиенты</h5>
                 <p class="display-4 fw-bold my-2">{{ unique_clients }}</p>
-                <a href="{% url 'mailing:client_list' %}" class="text-white text-decoration-none small">Управлять базой &rarr;</a>
+                <a href="{% url 'mailings:client_list' %}" class="text-white text-decoration-none small">Управлять базой &rarr;</a>
             </div>
         </div>
     </div>

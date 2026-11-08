@@ -113,7 +113,7 @@ class MailingHomeView(TemplateView):
         context['active_mailings'] = Mailing.objects.filter(
             status='started',
             start_time__lte=now,
-            end_time__geq=now
+            end_time__gte=now
         ).count()
 
         # Количество уникальных получателей
