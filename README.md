@@ -245,3 +245,13 @@ coursework_04/
     └── ...
 
 ```
+
+```commandline
+📁 users/
+└── 📁 templates/
+└── 📁 users/
+├── login.html — страница входа
+├── register.html — страница регистрации нового аккаунта
+├── profile.html — страница редактирования профиля
+└── verification_success.html — страница успешного подтверждения email
+```

@@ -21,8 +21,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Приложение для рассылок
+    # Приложения проекта
     'mailings',
+    'users.apps.UsersConfig',  # исправил на полный путь
 ]
 
 # Промежуточные слои (исправляют ошибки (admin.E408), (admin.E409), (admin.E410) из терминала)
@@ -109,3 +110,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Указываем Django, что нужно искать статику внутри папок приложений
+STATICFILES_DIRS = [
+    BASE_DIR / "mailings" / "static",
+]
+
+# Указываем Django использовать нашу кастомную модель вместо стандартной
+AUTH_USER_MODEL = 'users.User'
