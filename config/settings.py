@@ -21,6 +21,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Сторонние библиотеки
+    'django_apscheduler',  # обязательное имя приложения для APScheduler
+
     # Приложения проекта
     'mailings',
     'users.apps.UsersConfig',  # исправил на полный путь
@@ -122,3 +125,6 @@ AUTH_USER_MODEL = 'users.User'
 # Настройки для сохранения и раздачи загружаемых аватарок пользователей
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Настраиваем вывод всех отправляемых писем напрямую в консоль PyCharm (для тестов и защиты)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
