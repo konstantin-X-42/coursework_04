@@ -221,3 +221,27 @@ python manage.py runserver
 ├── message_form.html — форма для сообщений
 └── message_confirm_delete.html
 ```
+
+```commandline
+coursework_04/
+├── .env
+├── manage.py
+├── pyproject.toml
+├── poetry.lock
+├── mailings/                <-- Папка вашего приложения (переименуем во множественное число)
+│   ├── templates/
+│   │   └── mailings/       <-- Внутри папка с именем приложения, а в ней ВСЕ .html файлы
+│   │       ├── base.html
+│   │       ├── home.html
+│   │       └── ...
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+└── config/                  <-- Папка конфигурации всего проекта (где лежат настройки)
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── ...
+
+```

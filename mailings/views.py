@@ -9,12 +9,12 @@ from django.utils import timezone
 
 class MailingListView(ListView):
     model = Mailing
-    template_name = 'mailing/mailing_list.html'
+    template_name = 'mailings/mailing_list.html'
 
 
 class MailingDetailView(DetailView):
     model = Mailing
-    template_name = 'mailing/mailing_detail.html'
+    template_name = 'mailings/mailing_detail.html'
 
     # ТРЕБОВАНИЕ ИЗ ТЗ: Динамический пересчет статуса при обращении
     def get_object(self, queryset=None):
@@ -26,81 +26,81 @@ class MailingDetailView(DetailView):
 class MailingCreateView(CreateView):
     model = Mailing
     fields = ['start_time', 'end_time', 'message', 'recipients']
-    success_url = reverse_lazy('mailing:mailing_list')
-    template_name = 'mailing/mailing_form.html'
+    success_url = reverse_lazy('mailings:mailing_list')
+    template_name = 'mailings/mailing_form.html'
 
 
 class MailingUpdateView(UpdateView):
     model = Mailing
     fields = ['start_time', 'end_time', 'message', 'recipients']
-    success_url = reverse_lazy('mailing:mailing_list')
-    template_name = 'mailing/mailing_form.html'
+    success_url = reverse_lazy('mailings:mailing_list')
+    template_name = 'mailings/mailing_form.html'
 
 
 class MailingDeleteView(DeleteView):
     model = Mailing
-    success_url = reverse_lazy('mailing:mailing_list')
-    template_name = 'mailing/mailing_confirm_delete.html'
+    success_url = reverse_lazy('mailings:mailing_list')
+    template_name = 'mailings/mailing_confirm_delete.html'
 
 
 # --- КОНТРОЛЛЕРЫ ДЛЯ КЛИЕНТОВ ---
 
 class ClientListView(ListView):
     model = Client
-    template_name = 'mailing/client_list.html'
+    template_name = 'mailings/client_list.html'
 
 
 class ClientCreateView(CreateView):
     model = Client
     fields = ['email', 'full_name', 'comment']
-    success_url = reverse_lazy('mailing:client_list')
-    template_name = 'mailing/client_form.html'
+    success_url = reverse_lazy('mailings:client_list')
+    template_name = 'mailings/client_form.html'
 
 
 class ClientUpdateView(UpdateView):
     model = Client
     fields = ['email', 'full_name', 'comment']
-    success_url = reverse_lazy('mailing:client_list')
-    template_name = 'mailing/client_form.html'
+    success_url = reverse_lazy('mailings:client_list')
+    template_name = 'mailings/client_form.html'
 
 
 class ClientDeleteView(DeleteView):
     model = Client
-    success_url = reverse_lazy('mailing:client_list')
-    template_name = 'mailing/client_confirm_delete.html'
+    success_url = reverse_lazy('mailings:client_list')
+    template_name = 'mailings/client_confirm_delete.html'
 
 
 # --- КОНТРОЛЛЕРЫ ДЛЯ СООБЩЕНИЙ ---
 
 class MessageListView(ListView):
     model = Message
-    template_name = 'mailing/message_list.html'
+    template_name = 'mailings/message_list.html'
 
 
 class MessageCreateView(CreateView):
     model = Message
     fields = ['title', 'body']
-    success_url = reverse_lazy('mailing:message_list')
-    template_name = 'mailing/message_form.html'
+    success_url = reverse_lazy('mailings:message_list')
+    template_name = 'mailings/message_form.html'
 
 
 class MessageUpdateView(UpdateView):
     model = Message
     fields = ['title', 'body']
-    success_url = reverse_lazy('mailing:message_list')
-    template_name = 'mailing/message_form.html'
+    success_url = reverse_lazy('mailings:message_list')
+    template_name = 'mailings/message_form.html'
 
 
 class MessageDeleteView(DeleteView):
     model = Message
-    success_url = reverse_lazy('mailing:message_list')
-    template_name = 'mailing/message_confirm_delete.html'
+    success_url = reverse_lazy('mailings:message_list')
+    template_name = 'mailings/message_confirm_delete.html'
 
 
 # --- ГЛАВНАЯ СТРАНИЦА (Пункт 6 ТЗ) ---
 
 class MailingHomeView(TemplateView):
-    template_name = 'mailing/home.html'
+    template_name = 'mailings/home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -126,4 +126,4 @@ class MailingHomeView(TemplateView):
 def run_mailing_view(request, pk):
     mailing = get_object_or_404(Mailing, pk=pk)
     # Здесь будет вызов функции отправки писем
-    return redirect(reverse('mailing:mailing_detail', kwargs={'pk': pk}))
+    return redirect(reverse('mailings:mailing_detail', kwargs={'pk': pk}))
