@@ -1,55 +1,130 @@
+import smtplib
+from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 from .models import Mailing, MailingLog
-import smtplib
+
+
+def send_mailing_batch(mailing):
+    """
+    Отправляет письма каждому получателю по отдельности
+    и сохраняет логи попыток пакетно через bulk_create (batch).
+    """
+    now = timezone.now()
+    mailing.update_status()
+
+    # текущее время должно быть строго между началом и окончанием
+    if not (mailing.start_time <= now <= mailing.end_time):
+        return False, "Ошибка: текущее время не входит в период проведения рассылки."
+
+    recipients = mailing.recipients.all()
+    if not recipients.exists():
+        return False, "Ошибка: в рассылке не выбраны получатели."
+
+    logs_to_create = []
+    success_count = 0
+    from_email = getattr(settings, 'EMAIL_HOST_USER', 'test@mailing.ru')
+
+    # Отправляем письмо каждому получателю и формируем список объектов логов
+    for client in recipients:
+        try:
+            send_mail(
+                subject=mailing.message.title,
+                message=mailing.message.body,
+                from_email=from_email,
+                recipient_list=[client.email],
+                fail_silently=False,
+            )
+            logs_to_create.append(
+                MailingLog(
+                    status='success',
+                    server_response=f'Письмо успешно отправлено на {client.email}',
+                    mailing=mailing
+                )
+            )
+            success_count += 1
+        except (smtplib.SMTPException, Exception) as e:
+            logs_to_create.append(
+                MailingLog(
+                    status='failed',
+                    server_response=f'Ошибка отправки на {client.email}: {str(e)}',
+                    mailing=mailing
+                )
+            )
+
+    # Пакетное создание всех записей в базе одним SQL-запросом (batch)
+    if logs_to_create:
+        MailingLog.objects.bulk_create(logs_to_create)
+
+    return True, f"Рассылка выполнена. Успешно отправлено: {success_count} из {len(recipients)}."
 
 
 def send_mailing_job():
-    """Фоновая задача, которая проверяет рассылки и отправляет их клиентам"""
+    """Фоновая задача для периодической отправки активных рассылок"""
     now = timezone.now()
-
-    # Находим все рассылки, которые должны выполняться в текущий момент
     active_mailings = Mailing.objects.filter(
         status__in=['created', 'started'],
         start_time__lte=now,
         end_time__gte=now
     )
-
     for mailing in active_mailings:
-        # Автоматически переводим статус рассылки в состояние "Запущена"
-        if mailing.status != 'started':
-            mailing.status = 'started'
-            mailing.save()
+        send_mailing_batch(mailing)
 
-        # Формируем тему и текст сообщения
-        subject = mailing.message.title
-        message = mailing.message.body
+#----------------------------
 
-        # Собираем список email-адресов получателей
-        recipient_list = [client.email for client in mailing.recipients.all()]
 
-        if recipient_list:
-            try:
-                # Имитируем/отправляем фоновое письмо
-                send_mail(
-                    subject=subject,
-                    message=message,
-                    from_email='test@mailing.ru',
-                    recipient_list=recipient_list,
-                    fail_silently=False,
-                )
-
-                # Записываем успешную попытку в базу данных PostgreSQL
-                MailingLog.objects.create(
-                    status='success',
-                    server_response='Письмо успешно отправлено всем получателям',
-                    mailing=mailing
-                )
-
-            except smtplib.SMTPException as e:
-                # Записываем лог ошибки в PostgreSQL, если сервер не ответил
-                MailingLog.objects.create(
-                    status='failed',
-                    server_response=f'Ошибка SMTP: {str(e)}',
-                    mailing=mailing
-                )
+# from django.core.mail import send_mail
+# from django.utils import timezone
+# from .models import Mailing, MailingLog
+# import smtplib
+#
+#
+# def send_mailing_job():
+#     """Фоновая задача, проверяет рассылки и отправляет их клиентам"""
+#     now = timezone.now()
+#
+#     # Находим все рассылки, которые должны выполняться в текущий момент
+#     active_mailings = Mailing.objects.filter(
+#         status__in=['created', 'started'],
+#         start_time__lte=now,
+#         end_time__gte=now
+#     )
+#
+#     for mailing in active_mailings:
+#         # Автоматически переводим статус рассылки в состояние "Запущена"
+#         if mailing.status != 'started':
+#             mailing.status = 'started'
+#             mailing.save()
+#
+#         # Формируем тему и текст сообщения
+#         subject = mailing.message.title
+#         message = mailing.message.body
+#
+#         # Собираем список email-адресов получателей
+#         recipient_list = [client.email for client in mailing.recipients.all()]
+#
+#         if recipient_list:
+#             try:
+#                 # Имитируем/отправляем фоновое письмо
+#                 send_mail(
+#                     subject=subject,
+#                     message=message,
+#                     from_email='test@mailing.ru',
+#                     recipient_list=recipient_list,
+#                     fail_silently=False,
+#                 )
+#
+#                 # Записываем успешную попытку в базу данных PostgreSQL
+#                 MailingLog.objects.create(
+#                     status='success',
+#                     server_response='Письмо успешно отправлено всем получателям',
+#                     mailing=mailing
+#                 )
+#
+#             except smtplib.SMTPException as e:
+#                 # Записываем лог ошибки в PostgreSQL, если сервер не ответил
+#                 MailingLog.objects.create(
+#                     status='failed',
+#                     server_response=f'Ошибка SMTP: {str(e)}',
+#                     mailing=mailing
+#                 )
