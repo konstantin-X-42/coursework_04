@@ -99,6 +99,11 @@ python manage.py runserver
 При успешном запуске в консоли отобразится системное уведомление:  
 `🚀 Фоновый планировщик рассылок успешно запущен!`
 
+Команда подтверждение токена при регистрации почты
+```
+python manage.py shell -c "from users.models import User; print(User.objects.filter(email='АДРЕС ПОЧТЫ').update(is_active=True))"
+```
+
 ---
 
 ## 📧 Тестирование логики отправки писем
