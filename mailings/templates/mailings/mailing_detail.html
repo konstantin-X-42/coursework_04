@@ -1,9 +1,8 @@
-<!-- Детальный просмотр рассылки + кнопка ручного запуска + логи -->
+<!-- Детальный просмотр рассылки + кнопка ручного запуска + кнопка отключения для менеджера + логи -->
 {% extends 'mailings/base.html' %}
 
 {% block content %}
 <div class="mb-3">
-    <!-- Исправлено: mailings: вместо mailing: -->
     <a href="{% url 'mailings:mailing_list' %}" class="text-decoration-none text-muted">&larr; Вернуться к списку</a>
 </div>
 
@@ -29,23 +28,35 @@
                 </p>
                 <p><strong>Получателей:</strong> {{ object.recipients.count }} чел.</p>
 
+                <!-- Блок кнопок управления рассылкой -->
                 <div class="d-grid gap-2 mt-4">
-                    <!-- Закомментируем кнопку ручного запуска, если у вас в контроллере нет обработчика run_mailing, чтобы не было ошибки -->
-                    <!-- <a href="{% url 'mailings:run_mailing' object.pk %}" class="btn btn-success fw-bold py-2">⚡ Запустить рассылку вручную</a> -->
-                    <span class="text-muted small text-center">Управление рассылкой доступно из списка</span>
+                    <!-- Кнопка ручного запуска: видна только владельцу рассылки или суперадмину -->
+                    {% if object.owner == user or user.is_superuser %}
+                        <a href="{% url 'mailings:run_mailing' object.pk %}" class="btn btn-success fw-bold py-2">
+                            ⚡ Запустить рассылку вручную
+                        </a>
+                    {% endif %}
+
+                    <!-- Кнопка принудительного отключения: видна только Менеджеру (can_disable_mailing) или суперадмину -->
+                    {% if perms.mailings.can_disable_mailing or user.is_superuser %}
+                        {% if object.status != 'completed' %}
+                            <a href="{% url 'mailings:disable_mailing' object.pk %}" class="btn btn-danger fw-bold py-2">
+                                🛑 Отключить рассылку
+                            </a>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Логи попыток рассылки (Требование ТЗ) -->
+    <!-- Логи попыток рассылки (пакетная запись на каждое письмо) -->
     <div class="col-md-7">
         <div class="card shadow-sm border-0 p-3">
             <div class="card-body">
                 <h5 class="fw-bold mb-3">История отправки (Логи)</h5>
                 <div style="max-height: 400px; overflow-y: auto;">
                     <ul class="list-group list-group-flush">
-                        <!-- Исправлено: убран ошибочный синтаксис order_by -->
                         {% for log in object.logs.all %}
                         <li class="list-group-item d-flex justify-content-between align-items-start px-0 py-3">
                             <div class="ms-2 me-auto">

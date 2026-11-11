@@ -1,4 +1,4 @@
-<!-- Главная страница с статистикой -->
+<!-- Главная страница со статистикой -->
 {% extends 'mailings/base.html' %}
 
 {% block content %}
@@ -9,6 +9,7 @@
     </div>
 </div>
 
+<!-- Первый ряд карточек: общая статистика по рассылкам и клиентам -->
 <h3 class="mb-4 fw-bold">Статистика системы</h3>
 <div class="row g-4">
     <!-- Всего рассылок -->
@@ -38,6 +39,41 @@
                 <h5 class="card-title text-uppercase opacity-75 small">Уникальные клиенты</h5>
                 <p class="display-4 fw-bold my-2">{{ unique_clients }}</p>
                 <a href="{% url 'mailings:client_list' %}" class="text-white text-decoration-none small">Управлять базой &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Второй ряд карточек: статистика попыток и отправленных сообщений (требование наставника) -->
+<h3 class="mt-5 mb-4 fw-bold">Статистика попыток и сообщений</h3>
+<div class="row g-4">
+    <!-- Успешные попытки -->
+    <div class="col-md-4">
+        <div class="card border-success shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title text-uppercase text-muted small">Успешные попытки</h5>
+                <p class="display-4 fw-bold text-success my-2">{{ success_attempts }}</p>
+                <span class="text-muted small">Доставлено без ошибок</span>
+            </div>
+        </div>
+    </div>
+    <!-- Неуспешные попытки -->
+    <div class="col-md-4">
+        <div class="card border-danger shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title text-uppercase text-muted small">Неуспешные попытки</h5>
+                <p class="display-4 fw-bold text-danger my-2">{{ failed_attempts }}</p>
+                <span class="text-muted small">Ошибки почтового сервера</span>
+            </div>
+        </div>
+    </div>
+    <!-- Всего отправлено сообщений -->
+    <div class="col-md-4">
+        <div class="card border-primary shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title text-uppercase text-muted small">Отправлено сообщений</h5>
+                <p class="display-4 fw-bold text-primary my-2">{{ sent_messages_count }}</p>
+                <span class="text-muted small">Общее количество писем</span>
             </div>
         </div>
     </div>

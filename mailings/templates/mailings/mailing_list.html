@@ -4,6 +4,7 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold m-0">Список рассылок</h2>
+    <!-- Кнопка создания новой рассылки -->
     <a href="{% url 'mailings:mailing_create' %}" class="btn btn-primary">+ Создать рассылку</a>
 </div>
 
@@ -20,6 +21,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Перебираем все рассылки, доступные текущему пользователю или менеджеру -->
                 {% for object in object_list %}
                 <tr>
                     <td>{{ object.id }}</td>
@@ -28,6 +30,7 @@
                         с {{ object.start_time|date:"d.m.Y H:i" }}<br>до {{ object.end_time|date:"d.m.Y H:i" }}
                     </td>
                     <td>
+                        <!-- Цветной бейдж текущего статуса рассылки -->
                         {% if object.status == 'created' %}
                             <span class="badge bg-secondary">Создана</span>
                         {% elif object.status == 'started' %}
@@ -38,9 +41,14 @@
                     </td>
                     <td class="text-end">
                         <div class="btn-group btn-group-sm">
+                            <!-- Кнопка «Просмотр» доступна как владельцу, так и Менеджеру -->
                             <a href="{% url 'mailings:mailing_detail' object.pk %}" class="btn btn-outline-dark">Просмотр</a>
-                            <a href="{% url 'mailings:mailing_update' object.pk %}" class="btn btn-outline-secondary">Редактировать</a>
-                            <a href="{% url 'mailings:mailing_delete' object.pk %}" class="btn btn-outline-danger">Удалить</a>
+
+                            <!-- Кнопки «Редактировать» и «Удалить» доступны ТОЛЬКО владельцу или суперадмину -->
+                            {% if object.owner == user or user.is_superuser %}
+                                <a href="{% url 'mailings:mailing_update' object.pk %}" class="btn btn-outline-secondary">Редактировать</a>
+                                <a href="{% url 'mailings:mailing_delete' object.pk %}" class="btn btn-outline-danger">Удалить</a>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>

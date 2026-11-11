@@ -18,13 +18,20 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Место вставки: обновленное меню с поддержкой авторизации пользователей -->
+            <!-- Основное меню навигации -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="{% url 'mailings:home' %}">Главная</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'mailings:mailing_list' %}">Рассылки</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'mailings:client_list' %}">Клиенты</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'mailings:message_list' %}">Сообщения</a></li>
+
+                    <!-- Пункт меню «Пользователи»: отображается только Менеджеру или Суперадмину -->
+                    {% if perms.users.can_block_user or user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-semibold" href="{% url 'users:user_list' %}">Пользователи</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
                 <!-- Блок входа/выхода справа в шапке -->
@@ -48,6 +55,15 @@
 
     <!-- Основной контент -->
     <div class="container">
+        <!-- Блок вывода уведомлений (успешная отправка рассылки, ошибки времени, блокировка и т.д.) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </div>
