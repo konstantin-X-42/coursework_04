@@ -205,10 +205,9 @@ class MailingHomeView(TemplateView):
 
         context['total_mailings'] = Mailing.objects.count()
         context['active_mailings'] = Mailing.objects.filter(
-            status='started',
             start_time__lte=now,
             end_time__gte=now
-        ).count()
+        ).exclude(status='completed').count()
         context['unique_clients'] = Client.objects.distinct().count()
 
         # Статистика по попыткам и отправленным сообщениям
@@ -225,6 +224,7 @@ class MailingHomeView(TemplateView):
         context['sent_messages_count'] = context['success_attempts']
 
         return context
+
 
 
 # --- РУЧНОЙ ЗАПУСК РАССЫЛКИ ---

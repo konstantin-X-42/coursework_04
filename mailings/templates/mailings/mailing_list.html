@@ -30,10 +30,10 @@
                         с {{ object.start_time|date:"d.m.Y H:i" }}<br>до {{ object.end_time|date:"d.m.Y H:i" }}
                     </td>
                     <td>
-                        <!-- Цветной бейдж текущего статуса рассылки -->
-                        {% if object.status == 'created' %}
+                        <!-- Цветной бейдж актуального статуса рассылки -->
+                        {% if object.actual_status == 'created' %}
                             <span class="badge bg-secondary">Создана</span>
-                        {% elif object.status == 'started' %}
+                        {% elif object.actual_status == 'started' %}
                             <span class="badge bg-success">Запущена</span>
                         {% else %}
                             <span class="badge bg-danger">Завершена</span>

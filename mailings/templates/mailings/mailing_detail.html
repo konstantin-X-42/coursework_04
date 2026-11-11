@@ -18,9 +18,9 @@
                 <p><strong>Начало:</strong> {{ object.start_time|date:"d.m.Y H:i" }}</p>
                 <p><strong>Окончание:</strong> {{ object.end_time|date:"d.m.Y H:i" }}</p>
                 <p><strong>Текущий статус:</strong>
-                    {% if object.status == 'created' %}
+                    {% if object.actual_status == 'created' %}
                         <span class="badge bg-secondary fs-6">Создана</span>
-                    {% elif object.status == 'started' %}
+                    {% elif object.actual_status == 'started' %}
                         <span class="badge bg-success fs-6">Запущена</span>
                     {% else %}
                         <span class="badge bg-danger fs-6">Завершена</span>
@@ -39,7 +39,7 @@
 
                     <!-- Кнопка принудительного отключения: видна только Менеджеру (can_disable_mailing) или суперадмину -->
                     {% if perms.mailings.can_disable_mailing or user.is_superuser %}
-                        {% if object.status != 'completed' %}
+                        {% if object.actual_status != 'completed' %}
                             <a href="{% url 'mailings:disable_mailing' object.pk %}" class="btn btn-danger fw-bold py-2">
                                 🛑 Отключить рассылку
                             </a>
