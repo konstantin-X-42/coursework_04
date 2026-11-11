@@ -73,6 +73,11 @@ class MailingUpdateView(LoginRequiredMixin, UpdateView):
         form.fields['end_time'].widget = widgets.DateTimeInput(attrs={'type': 'datetime-local'})
         return form
 
+    def form_valid(self, form):
+        # При редактировании дат сбрасываем статус в 'created', чтобы он заново пересчитался
+        form.instance.status = 'created'
+        return super().form_valid(form)
+
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
         if obj.owner != self.request.user and not self.request.user.is_superuser:
