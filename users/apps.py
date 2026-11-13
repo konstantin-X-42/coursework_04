@@ -32,14 +32,3 @@ class UsersConfig(AppConfig):
     def ready(self):
         # Подключаем сигнал post_migrate для автоматического создания группы при миграциях
         post_migrate.connect(create_managers_group, sender=self)
-
-
-#----до изменений---
-
-# from django.apps import AppConfig
-#
-#
-# class UsersConfig(AppConfig):
-#     default_auto_field = 'django.db.models.BigAutoField'
-#     name = 'users'
-#     verbose_name = 'Пользователи'
