@@ -30,15 +30,17 @@
 
                 <!-- Блок кнопок управления рассылкой -->
                 <div class="d-grid gap-2 mt-4">
-                    <!-- Кнопка ручного запуска: видна только владельцу рассылки или суперадмину -->
+                    <!-- Кнопка ручного запуска: видна владельцу, только если рассылка не завершена и не отключена -->
                     {% if object.owner == user or user.is_superuser %}
-                        <a href="{% url 'mailings:run_mailing' object.pk %}" class="btn btn-success fw-bold py-2">
-                            ⚡ Запустить рассылку вручную
-                        </a>
+                        {% if object.actual_status != 'completed' %}
+                            <a href="{% url 'mailings:run_mailing' object.pk %}" class="btn btn-success fw-bold py-2">
+                                ⚡ Запустить рассылку вручную
+                            </a>
+                        {% endif %}
                     {% endif %}
 
-                    <!-- Кнопка принудительного отключения: видна только Менеджеру (can_disable_mailing) или суперадмину -->
-                    {% if perms.mailings.can_disable_mailing or user.is_superuser %}
+                    <!-- Кнопка принудительного отключения: учитывает права обеих моделей (mailings и users) -->
+                    {% if perms.mailings.can_disable_mailing or perms.users.can_disable_mailing or user.is_superuser %}
                         {% if object.actual_status != 'completed' %}
                             <a href="{% url 'mailings:disable_mailing' object.pk %}" class="btn btn-danger fw-bold py-2">
                                 🛑 Отключить рассылку

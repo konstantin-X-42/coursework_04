@@ -26,8 +26,8 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'mailings:client_list' %}">Клиенты</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'mailings:message_list' %}">Сообщения</a></li>
 
-                    <!-- Пункт меню «Пользователи»: отображается только Менеджеру или Суперадмину -->
-                    {% if perms.users.can_block_user or user.is_superuser %}
+                    <!-- Пункт меню «Пользователи»: учитывает права менеджера на обеих моделях (User и Mailing) -->
+                    {% if perms.users.can_block_user or perms.users.can_view_any_mailings or perms.mailings.can_view_any_mailings or user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link text-warning fw-semibold" href="{% url 'users:user_list' %}">Пользователи</a>
                         </li>
