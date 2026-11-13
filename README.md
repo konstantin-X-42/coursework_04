@@ -96,6 +96,11 @@ poetry run celery -A config beat --loglevel=info
 python manage.py runserver
 ```
 
+### 9. Переход обратно в папку проекта
+```bash
+cd C:\Users\User\PycharmProjects\coursework_04
+```
+
 При успешном запуске в консоли отобразится системное уведомление:  
 `🚀 Фоновый планировщик рассылок успешно запущен!`
 
