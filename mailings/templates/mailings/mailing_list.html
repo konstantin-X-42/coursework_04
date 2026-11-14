@@ -1,0 +1,64 @@
+<!-- Список рассылок -->
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0">Список рассылок</h2>
+    <!-- Кнопка создания новой рассылки -->
+    <a href="{% url 'mailings:mailing_create' %}" class="btn btn-primary">+ Создать рассылку</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Сообщение</th>
+                    <th>Период проведения</th>
+                    <th>Статус</th>
+                    <th class="text-end">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Перебираем все рассылки, доступные текущему пользователю или менеджеру -->
+                {% for object in object_list %}
+                <tr>
+                    <td>{{ object.id }}</td>
+                    <td><strong class="text-dark">{{ object.message.title }}</strong></td>
+                    <td class="text-muted small">
+                        с {{ object.start_time|date:"d.m.Y H:i" }}<br>до {{ object.end_time|date:"d.m.Y H:i" }}
+                    </td>
+                    <td>
+                        <!-- Цветной бейдж актуального статуса рассылки -->
+                        {% if object.actual_status == 'created' %}
+                            <span class="badge bg-secondary">Создана</span>
+                        {% elif object.actual_status == 'started' %}
+                            <span class="badge bg-success">Запущена</span>
+                        {% else %}
+                            <span class="badge bg-danger">Завершена</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <div class="btn-group btn-group-sm">
+                            <!-- Кнопка «Просмотр» доступна как владельцу, так и Менеджеру -->
+                            <a href="{% url 'mailings:mailing_detail' object.pk %}" class="btn btn-outline-dark">Просмотр</a>
+
+                            <!-- Кнопки «Редактировать» и «Удалить» доступны ТОЛЬКО владельцу или суперадмину -->
+                            {% if object.owner == user or user.is_superuser %}
+                                <a href="{% url 'mailings:mailing_update' object.pk %}" class="btn btn-outline-secondary">Редактировать</a>
+                                <a href="{% url 'mailings:mailing_delete' object.pk %}" class="btn btn-outline-danger">Удалить</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-muted">Рассылок пока нет. Создайте первую!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

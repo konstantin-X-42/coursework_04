@@ -1,0 +1,1438 @@
+[
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "Менеджеры",
+        "permissions": [
+            [
+                "can_disable_mailing",
+                "mailings",
+                "mailing"
+            ],
+            [
+                "can_view_any_mailings",
+                "mailings",
+                "mailing"
+            ],
+            [
+                "can_block_user",
+                "users",
+                "user"
+            ],
+            [
+                "can_disable_mailing",
+                "users",
+                "user"
+            ],
+            [
+                "can_view_any_mailings",
+                "users",
+                "user"
+            ]
+        ]
+    }
+},
+{
+    "model": "django_apscheduler.djangojob",
+    "pk": "send_mailing_every_minute",
+    "fields": {
+        "next_run_time": "2026-11-08T19:53:01.658Z",
+        "job_state": "gAWVFwIAAAAAAAB9lCiMB3ZlcnNpb26USwGMAmlklIwZc2VuZF9tYWlsaW5nX2V2ZXJ5X21pbnV0ZZSMBGZ1bmOUjCJtYWlsaW5ncy5zZXJ2aWNlczpzZW5kX21haWxpbmdfam9ilIwHdHJpZ2dlcpSMHWFwc2NoZWR1bGVyLnRyaWdnZXJzLmludGVydmFslIwPSW50ZXJ2YWxUcmlnZ2VylJOUKYGUfZQoaAFLAowIdGltZXpvbmWUjAhidWlsdGluc5SMB2dldGF0dHKUk5SMCHpvbmVpbmZvlIwIWm9uZUluZm+Uk5SMCV91bnBpY2tsZZSGlFKUjA1FdXJvcGUvTW9zY293lEsBhpRSlIwKc3RhcnRfZGF0ZZSMCGRhdGV0aW1llIwIZGF0ZXRpbWWUk5RDCgfqCwgWJgEKDe2UaBiGlFKUjAhlbmRfZGF0ZZROjAhpbnRlcnZhbJRoGowJdGltZWRlbHRhlJOUSwBLPEsAh5RSlIwGaml0dGVylE51YowIZXhlY3V0b3KUjAdkZWZhdWx0lIwEYXJnc5QpjAZrd2FyZ3OUfZSMBG5hbWWUjBBzZW5kX21haWxpbmdfam9ilIwSbWlzZmlyZV9ncmFjZV90aW1llEsBjAhjb2FsZXNjZZSIjA1tYXhfaW5zdGFuY2VzlEsBjA1uZXh0X3J1bl90aW1llGgcQwoH6gsIFjUBCg3tlGgYhpRSlHUu"
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 1,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Error!",
+        "run_time": "2026-11-08T19:10:28.559Z",
+        "duration": "4.38",
+        "finished": "1794165032.94",
+        "exception": "[WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение",
+        "traceback": "  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\apscheduler\\executors\\base.py\", line 131, in run_job\n    retval = job.func(*job.args, **job.kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\mailings\\services.py\", line 34, in send_mailing_job\n    send_mail(\n    ~~~~~~~~~^\n        subject=subject,\n        ^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        fail_silently=False,\n        ^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\utils\\deprecation.py\", line 401, in wrapper\n    return func(*args, **kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\__init__.py\", line 183, in send_mail\n    return mail.send(using=using)\n           ~~~~~~~~~^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\message.py\", line 420, in send\n    return connection.send_messages([self])\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 191, in send_messages\n    new_conn_created = self.open()\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 137, in open\n    self._partial_connection = self.connection_class(\n                               ~~~~~~~~~~~~~~~~~~~~~^\n        self.host, self.port, **connection_params\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 262, in __init__\n    (code, msg) = self.connect(host, port)\n                  ~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 348, in connect\n    self.sock = self._get_socket(host, port, self.timeout)\n                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 319, in _get_socket\n    return socket.create_connection((host, port), timeout,\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n                                    self.source_address)\n                                    ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 870, in create_connection\n    raise exceptions[0]\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 855, in create_connection\n    sock.connect(sa)\n    ~~~~~~~~~~~~^^^^\n"
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 3,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Error!",
+        "run_time": "2026-11-08T19:11:28.559Z",
+        "duration": "4.09",
+        "finished": "1794165092.65",
+        "exception": "[WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение",
+        "traceback": "  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\apscheduler\\executors\\base.py\", line 131, in run_job\n    retval = job.func(*job.args, **job.kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\mailings\\services.py\", line 34, in send_mailing_job\n    send_mail(\n    ~~~~~~~~~^\n        subject=subject,\n        ^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        fail_silently=False,\n        ^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\utils\\deprecation.py\", line 401, in wrapper\n    return func(*args, **kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\__init__.py\", line 183, in send_mail\n    return mail.send(using=using)\n           ~~~~~~~~~^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\message.py\", line 420, in send\n    return connection.send_messages([self])\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 191, in send_messages\n    new_conn_created = self.open()\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 137, in open\n    self._partial_connection = self.connection_class(\n                               ~~~~~~~~~~~~~~~~~~~~~^\n        self.host, self.port, **connection_params\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 262, in __init__\n    (code, msg) = self.connect(host, port)\n                  ~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 348, in connect\n    self.sock = self._get_socket(host, port, self.timeout)\n                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 319, in _get_socket\n    return socket.create_connection((host, port), timeout,\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n                                    self.source_address)\n                                    ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 870, in create_connection\n    raise exceptions[0]\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 855, in create_connection\n    sock.connect(sa)\n    ~~~~~~~~~~~~^^^^\n"
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 4,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Error!",
+        "run_time": "2026-11-08T19:12:28.559Z",
+        "duration": "4.17",
+        "finished": "1794165152.73",
+        "exception": "[WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение",
+        "traceback": "  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\apscheduler\\executors\\base.py\", line 131, in run_job\n    retval = job.func(*job.args, **job.kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\mailings\\services.py\", line 34, in send_mailing_job\n    send_mail(\n    ~~~~~~~~~^\n        subject=subject,\n        ^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        fail_silently=False,\n        ^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\utils\\deprecation.py\", line 401, in wrapper\n    return func(*args, **kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\__init__.py\", line 183, in send_mail\n    return mail.send(using=using)\n           ~~~~~~~~~^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\message.py\", line 420, in send\n    return connection.send_messages([self])\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 191, in send_messages\n    new_conn_created = self.open()\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 137, in open\n    self._partial_connection = self.connection_class(\n                               ~~~~~~~~~~~~~~~~~~~~~^\n        self.host, self.port, **connection_params\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 262, in __init__\n    (code, msg) = self.connect(host, port)\n                  ~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 348, in connect\n    self.sock = self._get_socket(host, port, self.timeout)\n                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 319, in _get_socket\n    return socket.create_connection((host, port), timeout,\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n                                    self.source_address)\n                                    ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 870, in create_connection\n    raise exceptions[0]\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 855, in create_connection\n    sock.connect(sa)\n    ~~~~~~~~~~~~^^^^\n"
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 5,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Error!",
+        "run_time": "2026-11-08T19:13:28.559Z",
+        "duration": "4.09",
+        "finished": "1794165212.65",
+        "exception": "[WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение",
+        "traceback": "  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\apscheduler\\executors\\base.py\", line 131, in run_job\n    retval = job.func(*job.args, **job.kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\mailings\\services.py\", line 34, in send_mailing_job\n    send_mail(\n    ~~~~~~~~~^\n        subject=subject,\n        ^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        fail_silently=False,\n        ^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\utils\\deprecation.py\", line 401, in wrapper\n    return func(*args, **kwargs)\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\__init__.py\", line 183, in send_mail\n    return mail.send(using=using)\n           ~~~~~~~~~^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\message.py\", line 420, in send\n    return connection.send_messages([self])\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 191, in send_messages\n    new_conn_created = self.open()\n  File \"C:\\Users\\User\\PycharmProjects\\coursework_04\\.venv\\Lib\\site-packages\\django\\core\\mail\\backends\\smtp.py\", line 137, in open\n    self._partial_connection = self.connection_class(\n                               ~~~~~~~~~~~~~~~~~~~~~^\n        self.host, self.port, **connection_params\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 262, in __init__\n    (code, msg) = self.connect(host, port)\n                  ~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 348, in connect\n    self.sock = self._get_socket(host, port, self.timeout)\n                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\smtplib.py\", line 319, in _get_socket\n    return socket.create_connection((host, port), timeout,\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n                                    self.source_address)\n                                    ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 870, in create_connection\n    raise exceptions[0]\n  File \"C:\\Program Files\\Python314\\Lib\\socket.py\", line 855, in create_connection\n    sock.connect(sa)\n    ~~~~~~~~~~~~^^^^\n"
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 7,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:14:54.454Z",
+        "duration": "0.17",
+        "finished": "1794165294.62",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 9,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:15:54.454Z",
+        "duration": "0.06",
+        "finished": "1794165354.51",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 10,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:16:54.454Z",
+        "duration": "0.04",
+        "finished": "1794165414.49",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 12,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:17:54.454Z",
+        "duration": "0.01",
+        "finished": "1794165474.47",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 13,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:18:54.454Z",
+        "duration": "0.03",
+        "finished": "1794165534.48",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 15,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:19:54.454Z",
+        "duration": "0.01",
+        "finished": "1794165594.47",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 16,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:20:54.454Z",
+        "duration": "0.03",
+        "finished": "1794165654.48",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 18,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:21:54.454Z",
+        "duration": "0.02",
+        "finished": "1794165714.47",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 20,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:22:54.454Z",
+        "duration": "0.04",
+        "finished": "1794165774.49",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 22,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:23:54.454Z",
+        "duration": "0.03",
+        "finished": "1794165834.48",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 23,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:24:54.454Z",
+        "duration": "0.04",
+        "finished": "1794165894.49",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 24,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:25:54.454Z",
+        "duration": "0.03",
+        "finished": "1794165954.49",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 26,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:26:54.454Z",
+        "duration": "0.02",
+        "finished": "1794166014.47",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 28,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:27:54.454Z",
+        "duration": "0.02",
+        "finished": "1794166074.48",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 30,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:28:54.454Z",
+        "duration": "0.02",
+        "finished": "1794166134.47",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 32,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:29:54.454Z",
+        "duration": "0.02",
+        "finished": "1794166194.48",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 34,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:30:54.454Z",
+        "duration": "0.04",
+        "finished": "1794166254.49",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 36,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:31:54.454Z",
+        "duration": "0.01",
+        "finished": "1794166314.47",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 38,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:32:54.454Z",
+        "duration": "0.02",
+        "finished": "1794166374.48",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 40,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:34:33.087Z",
+        "duration": "0.20",
+        "finished": "1794166473.29",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 41,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:36:12.662Z",
+        "duration": "0.04",
+        "finished": "1794166572.70",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 43,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:38:01.658Z",
+        "duration": "0.10",
+        "finished": "1794166681.76",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 45,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:39:01.658Z",
+        "duration": "0.02",
+        "finished": "1794166741.68",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 47,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:40:01.658Z",
+        "duration": "0.01",
+        "finished": "1794166801.67",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 48,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:41:01.658Z",
+        "duration": "0.01",
+        "finished": "1794166861.67",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 49,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:42:01.658Z",
+        "duration": "0.03",
+        "finished": "1794166921.69",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 50,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:43:01.658Z",
+        "duration": "0.02",
+        "finished": "1794166981.68",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 51,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:44:01.658Z",
+        "duration": "0.02",
+        "finished": "1794167041.68",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 52,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:45:01.658Z",
+        "duration": "0.03",
+        "finished": "1794167101.69",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 53,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:46:01.658Z",
+        "duration": "0.03",
+        "finished": "1794167161.69",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 54,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:47:01.658Z",
+        "duration": "0.04",
+        "finished": "1794167221.70",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 55,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:48:01.658Z",
+        "duration": "0.02",
+        "finished": "1794167281.68",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 56,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:49:01.658Z",
+        "duration": "0.34",
+        "finished": "1794167342.00",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 57,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:50:01.658Z",
+        "duration": "0.01",
+        "finished": "1794167401.67",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 58,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:51:01.658Z",
+        "duration": "0.06",
+        "finished": "1794167461.72",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "django_apscheduler.djangojobexecution",
+    "pk": 59,
+    "fields": {
+        "job": "send_mailing_every_minute",
+        "status": "Executed",
+        "run_time": "2026-11-08T19:52:01.658Z",
+        "duration": "0.01",
+        "finished": "1794167521.67",
+        "exception": null,
+        "traceback": null
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 9,
+    "fields": {
+        "attempt_time": "2026-11-08T19:15:54.507Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено всем получателям",
+        "mailing": 1
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 10,
+    "fields": {
+        "attempt_time": "2026-11-08T19:15:54.509Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено всем получателям",
+        "mailing": 1
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 34,
+    "fields": {
+        "attempt_time": "2026-11-08T19:49:01.993Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено всем получателям",
+        "mailing": 4
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 35,
+    "fields": {
+        "attempt_time": "2026-11-11T11:19:32.108Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 36,
+    "fields": {
+        "attempt_time": "2026-11-11T11:19:32.108Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 37,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:02.999Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 38,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:02.999Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 39,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:08.044Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 40,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:08.044Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 41,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:09.195Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 42,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:09.195Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 43,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:10.022Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 44,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:10.022Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 45,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:10.969Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 46,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:10.969Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 47,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:11.925Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 48,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:11.925Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 49,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:19.969Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 50,
+    "fields": {
+        "attempt_time": "2026-11-11T11:31:19.969Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 5
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 51,
+    "fields": {
+        "attempt_time": "2026-11-11T14:26:00.104Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 9
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 52,
+    "fields": {
+        "attempt_time": "2026-11-11T14:26:38.015Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 9
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 53,
+    "fields": {
+        "attempt_time": "2026-11-11T14:27:00.084Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 9
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 59,
+    "fields": {
+        "attempt_time": "2026-11-11T14:36:00.098Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 7
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 60,
+    "fields": {
+        "attempt_time": "2026-11-11T14:41:00.204Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 6
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 61,
+    "fields": {
+        "attempt_time": "2026-11-11T14:42:00.191Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 6
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 62,
+    "fields": {
+        "attempt_time": "2026-11-11T14:48:00.100Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 10
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 63,
+    "fields": {
+        "attempt_time": "2026-11-11T14:49:00.077Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 10
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 64,
+    "fields": {
+        "attempt_time": "2026-11-11T17:59:00.106Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 11
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 65,
+    "fields": {
+        "attempt_time": "2026-11-11T17:59:31.773Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 11
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 66,
+    "fields": {
+        "attempt_time": "2026-11-11T17:59:31.773Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 11
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 67,
+    "fields": {
+        "attempt_time": "2026-11-11T17:59:31.773Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на doctor@gmail.com",
+        "mailing": 11
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 68,
+    "fields": {
+        "attempt_time": "2026-11-11T18:00:00.074Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 11
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 69,
+    "fields": {
+        "attempt_time": "2026-11-11T19:07:00.310Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 12
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 70,
+    "fields": {
+        "attempt_time": "2026-11-11T19:07:19.768Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на jl@mail.ru",
+        "mailing": 12
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 71,
+    "fields": {
+        "attempt_time": "2026-11-11T19:07:19.768Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на gh@mail.ru",
+        "mailing": 12
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 72,
+    "fields": {
+        "attempt_time": "2026-11-11T19:07:19.768Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на doctor@gmail.com",
+        "mailing": 12
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 73,
+    "fields": {
+        "attempt_time": "2026-11-11T19:08:00.082Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено через Celery+Redis",
+        "mailing": 12
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 74,
+    "fields": {
+        "attempt_time": "2026-11-13T09:54:00.334Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 75,
+    "fields": {
+        "attempt_time": "2026-11-13T09:54:00.334Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 76,
+    "fields": {
+        "attempt_time": "2026-11-13T09:55:00.150Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 77,
+    "fields": {
+        "attempt_time": "2026-11-13T09:55:00.150Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 78,
+    "fields": {
+        "attempt_time": "2026-11-13T09:56:00.178Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 79,
+    "fields": {
+        "attempt_time": "2026-11-13T09:56:00.178Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 80,
+    "fields": {
+        "attempt_time": "2026-11-13T09:57:00.159Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 81,
+    "fields": {
+        "attempt_time": "2026-11-13T09:57:00.159Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 82,
+    "fields": {
+        "attempt_time": "2026-11-13T09:58:00.147Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 83,
+    "fields": {
+        "attempt_time": "2026-11-13T09:58:00.147Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 84,
+    "fields": {
+        "attempt_time": "2026-11-13T09:59:00.155Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 85,
+    "fields": {
+        "attempt_time": "2026-11-13T09:59:00.155Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 86,
+    "fields": {
+        "attempt_time": "2026-11-13T10:00:00.307Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 87,
+    "fields": {
+        "attempt_time": "2026-11-13T10:00:00.307Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 88,
+    "fields": {
+        "attempt_time": "2026-11-13T10:01:00.161Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 89,
+    "fields": {
+        "attempt_time": "2026-11-13T10:01:00.161Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 90,
+    "fields": {
+        "attempt_time": "2026-11-13T10:02:00.177Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 111@yandex.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "mailings.mailinglog",
+    "pk": 91,
+    "fields": {
+        "attempt_time": "2026-11-13T10:02:00.177Z",
+        "status": "success",
+        "server_response": "Письмо успешно отправлено на 222@mail.ru",
+        "mailing": 13
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1500000$EQgpPL6zBgSVjrkr8UF87u$T4IVztE0WW5+5MLeORArz+yeuXXuS1NUYwv4Enyb4nM=",
+        "last_login": "2026-11-13T10:07:11.150Z",
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-11-08T17:05:41.880Z",
+        "email": "adminks@yandex.ru",
+        "avatar": "users/avatars/5Dgango.png",
+        "phone": "88888888",
+        "country": "Россия",
+        "is_verified": false,
+        "verification_token": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1500000$76anOeq9CTmFtMYRFI3eF6$2pdKb6m0mNIpXln+mgdNpC2ZK/uxyGybtxjlNXehlk8=",
+        "last_login": "2026-11-13T10:16:14.622Z",
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-11-11T18:54:19Z",
+        "email": "gorg@yandex.ru",
+        "avatar": "users/avatars/24_Django_DOG_2026-10-28_125218.png",
+        "phone": "9999999",
+        "country": "Германия",
+        "is_verified": false,
+        "verification_token": "0a20a560a1fa8fcec579198d0350b436",
+        "groups": [
+            [
+                "Менеджеры"
+            ]
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1500000$e4VrrEUAyOd6YmYdJygjdX$vDhxHvu1K9dceKpBtJBhaAlXKYx0XrP1A+R+Ua6nP2c=",
+        "last_login": "2026-11-11T20:03:33.161Z",
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-11-11T19:57:48.068Z",
+        "email": "hop@gmail.com",
+        "avatar": "users/avatars/6Dgango_аватарка.png",
+        "phone": "5555555",
+        "country": "Африка",
+        "is_verified": false,
+        "verification_token": "97e556dfef0391ce96dc43ae7f2d4c4d",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 1,
+    "fields": {
+        "start_time": "2026-11-08T19:15:00Z",
+        "end_time": "2026-11-08T19:16:00Z",
+        "status": "completed",
+        "message": 3,
+        "owner": null,
+        "recipients": [
+            1
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 4,
+    "fields": {
+        "start_time": "2026-11-11T11:16:00Z",
+        "end_time": "2026-11-11T11:18:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "adminks@yandex.ru"
+        ],
+        "recipients": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 5,
+    "fields": {
+        "start_time": "2026-11-11T11:31:00Z",
+        "end_time": "2026-11-11T11:32:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "adminks@yandex.ru"
+        ],
+        "recipients": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 6,
+    "fields": {
+        "start_time": "2026-11-11T14:41:00Z",
+        "end_time": "2026-11-11T14:43:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "adminks@yandex.ru"
+        ],
+        "recipients": [
+            1,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 7,
+    "fields": {
+        "start_time": "2026-11-11T14:36:00Z",
+        "end_time": "2026-11-11T14:37:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "adminks@yandex.ru"
+        ],
+        "recipients": [
+            1,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 9,
+    "fields": {
+        "start_time": "2026-11-11T14:26:00Z",
+        "end_time": "2026-11-11T14:28:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "adminks@yandex.ru"
+        ],
+        "recipients": [
+            3
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 10,
+    "fields": {
+        "start_time": "2026-11-11T14:48:00Z",
+        "end_time": "2026-11-11T14:50:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "adminks@yandex.ru"
+        ],
+        "recipients": [
+            1,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 11,
+    "fields": {
+        "start_time": "2026-11-11T17:59:00Z",
+        "end_time": "2026-11-11T18:01:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "adminks@yandex.ru"
+        ],
+        "recipients": [
+            1,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 12,
+    "fields": {
+        "start_time": "2026-11-11T19:07:00Z",
+        "end_time": "2026-11-11T19:09:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "gorg@yandex.ru"
+        ],
+        "recipients": [
+            1,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "mailings.mailing",
+    "pk": 13,
+    "fields": {
+        "start_time": "2026-11-13T09:54:00Z",
+        "end_time": "2026-11-13T10:15:00Z",
+        "status": "completed",
+        "message": 2,
+        "owner": [
+            "gorg@yandex.ru"
+        ],
+        "recipients": [
+            5,
+            6
+        ]
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 2,
+    "fields": {
+        "title": "Обзор новостей",
+        "body": "погода (ветер и температура)",
+        "owner": null
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 3,
+    "fields": {
+        "title": "Автомобили",
+        "body": "BMW",
+        "owner": null
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 4,
+    "fields": {
+        "title": "Недвижимость",
+        "body": "новостройки",
+        "owner": [
+            "adminks@yandex.ru"
+        ]
+    }
+},
+{
+    "model": "mailings.client",
+    "pk": 1,
+    "fields": {
+        "email": "jl@mail.ru",
+        "full_name": "Мартиросян Онлан",
+        "comment": "журнал и газета",
+        "owner": null
+    }
+},
+{
+    "model": "mailings.client",
+    "pk": 3,
+    "fields": {
+        "email": "gh@mail.ru",
+        "full_name": "Бобров Сергей Валерьевич",
+        "comment": "Недвижимость",
+        "owner": [
+            "adminks@yandex.ru"
+        ]
+    }
+},
+{
+    "model": "mailings.client",
+    "pk": 4,
+    "fields": {
+        "email": "doctor@gmail.com",
+        "full_name": "Пастухов Дмитрий Васильевич",
+        "comment": "кондидат",
+        "owner": [
+            "adminks@yandex.ru"
+        ]
+    }
+},
+{
+    "model": "mailings.client",
+    "pk": 5,
+    "fields": {
+        "email": "111@yandex.ru",
+        "full_name": "Абашин Александр Васильевич",
+        "comment": "Велосипеды",
+        "owner": [
+            "gorg@yandex.ru"
+        ]
+    }
+},
+{
+    "model": "mailings.client",
+    "pk": 6,
+    "fields": {
+        "email": "222@mail.ru",
+        "full_name": "Маркин Василий Игоревич",
+        "comment": "бурение",
+        "owner": [
+            "gorg@yandex.ru"
+        ]
+    }
+}
+]

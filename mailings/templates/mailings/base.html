@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Сервис рассылок{% endblock %}</title>
+    <!-- Подключаем локальный Bootstrap, который мы скачали -->
+    <link href="{% static 'mailings/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'mailings:home' %}">📬 MailingService</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Основное меню навигации -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'mailings:home' %}">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'mailings:mailing_list' %}">Рассылки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'mailings:client_list' %}">Клиенты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'mailings:message_list' %}">Сообщения</a></li>
+
+                    <!-- Пункт меню «Пользователи»: учитывает права менеджера на обеих моделях (User и Mailing) -->
+                    {% if perms.users.can_block_user or perms.users.can_view_any_mailings or perms.mailings.can_view_any_mailings or user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-semibold" href="{% url 'users:user_list' %}">Пользователи</a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                <!-- Блок входа/выхода справа в шапке -->
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link fw-semibold text-white" href="{% url 'users:profile' %}">👤 {{ user.email }}</a></li>
+                        <li class="nav-item">
+                            <form action="{% url 'users:logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn nav-link text-danger border-0 m-0 p-0 ms-2" style="background: none;">Выйти</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Войти</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm text-white ms-2 px-3" href="{% url 'users:register' %}">Регистрация</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Блок вывода уведомлений (успешная отправка рассылки, ошибки времени, блокировка и т.д.) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer class="text-center text-muted mt-5 py-3 border-top">
+        <p>&copy; 2026 Курсовая работа. Сервис управления рассылками.</p>
+    </footer>
+
+</body>
+</html>
