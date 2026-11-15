@@ -1,0 +1,70 @@
+<!-- Список пользователей для Менеджера -->
+
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0">Пользователи сервиса</h2>
+</div>
+
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Телефон</th>
+                    <th>Страна</th>
+                    <th>Верификация</th>
+                    <th>Статус</th>
+                    <th class="text-end">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Выводим список всех зарегистрированных пользователей -->
+                {% for u in object_list %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td><strong>{{ u.email }}</strong></td>
+                    <td>{{ u.phone|default:"—" }}</td>
+                    <td>{{ u.country|default:"—" }}</td>
+                    <td>
+                        <!-- Проверка: подтвердил ли пользователь свою почту -->
+                        {% if u.is_verified %}
+                            <span class="badge bg-info text-dark">Подтвержден</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Не подтвержден</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- Проверка: активен пользователь или заблокирован -->
+                        {% if u.is_active %}
+                            <span class="badge bg-success">Активен</span>
+                        {% else %}
+                            <span class="badge bg-danger">Заблокирован</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <!-- Запрещаем блокировать самого себя и суперадмина -->
+                        {% if not u.is_superuser and u != user %}
+                            {% if u.is_active %}
+                                <a href="{% url 'users:toggle_user_block' u.pk %}" class="btn btn-sm btn-outline-danger">Заблокировать</a>
+                            {% else %}
+                                <a href="{% url 'users:toggle_user_block' u.pk %}" class="btn btn-sm btn-outline-success">Разблокировать</a>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-muted small">Недоступно</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center py-4 text-muted">Пользователи не найдены.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

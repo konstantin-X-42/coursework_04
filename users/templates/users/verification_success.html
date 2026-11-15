@@ -1,0 +1,19 @@
+<!-- Экран успешного подтверждения email -->
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5 text-center">
+        <div class="card shadow-sm border-0 p-5">
+            <div class="text-success mb-3">
+                <svg xmlns="http://w3.org" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
+            </div>
+            <h3 class="fw-bold text-dark">Почта подтверждена!</h3>
+            <p class="text-muted mb-4">Ваш аккаунт успешно активирован. Теперь вы можете войти в систему под своими данными.</p>
+            <a href="{% url 'users:login' %}" class="btn btn-primary px-4 py-2 fw-bold">Перейти ко входу</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
